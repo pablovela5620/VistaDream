@@ -1,26 +1,32 @@
-[workspace]
-authors = ["pablo vela <pablovela5620@gmail.com>"]
-channels = ["xformers", "pyg", "pytorch", "nvidia", "conda-forge"]
+[project]
 name = "vistadream"
-platforms = ["linux-64"]
 version = "0.1.0"
+description = "VistaDream - 3D Scene Generation"
+authors = [{ name = "pablo vela", email = "pablovela5620@gmail.com" }]
+requires-python = ">=3.11.0"
+readme = "README.md"
 
-[system-requirements]
+dependencies = []
+
+[tool.setuptools.packages.find]
+include = ["vistadream*"]
+
+[tool.pixi.project]
+channels = ["https://prefix.dev/conda-forge"]
+platforms = ["linux-64"]
+
+[tool.pixi.system-requirements]
 cuda = "12" # Replace "12" with the specific CUDA version you intend to use
 
-
-[pypi-options]
-no-build-isolation = ["natten", "detectron2", "gsplat"]
-
-[tasks]
+[tool.pixi.tasks]
 install-msda = { cmd = "sh make.sh", cwd = "tools/OneFormer/oneformer/modeling/pixel_decoder/ops", description = "Install MSDA operations for OneFormer pixel decoder" }
 
-
-[activation]
+[tool.pixi.activation]
+# required to make gsplat work on CUDA 12.8 | 5090
 env = { TORCH_CUDA_ARCH_LIST = "12.0" }
 
-[dependencies]
-python = "3.10.12.*"
+[tool.pixi.dependencies]
+python = "3.11.*"
 pip = "24.0.*"
 cmake = ">=4.0.3,<5"
 
@@ -49,8 +55,13 @@ libcusolver-dev = "*"
 cusparselt = "*"
 libnvjitlink = "*"
 # cuda126 end
+tyro = ">=0.9.26,<0.10"
+beartype = ">=0.21.0,<0.22"
 
-[pypi-dependencies]
+[tool.pixi.pypi-options]
+no-build-isolation = ["natten", "detectron2", "gsplat"]
+
+[tool.pixi.pypi-dependencies]
 torch = { version = ">=2.7.0", index = "https://download.pytorch.org/whl/cu128" }
 torchvision = { version = ">=0.20.1", index = "https://download.pytorch.org/whl/cu128" }
 accelerate = "*"
@@ -75,6 +86,8 @@ torchsde = "*"
 huggingface-hub = "*"
 roma = "*"
 peft = "*"
-depth_pro = { path = "tools/DepthPro", editable = false }
+depth_pro = { path = "tools/DepthPro", editable = true }
 detectron2 = { git = "https://github.com/facebookresearch/detectron2.git" }
 torchmetrics = ">=1.7.4, <2"
+simplecv = { git = "https://github.com/pablovela5620/simplecv.git" }
+vistadream = { path = ".", editable = true }

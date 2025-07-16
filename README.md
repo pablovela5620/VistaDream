@@ -103,7 +103,7 @@ If you need to improve the reconstruction quality of your own images, please ref
 To visualize the generated gaussian field, you can use the following script:
 ```
 import torch
-from ops.utils import save_ply
+from vistadream.ops.utils import save_ply
 scene = torch.load(f'data/vistadream/piano/refine.scene.pth')
 save_ply(scene,'gf.ply')
 ```

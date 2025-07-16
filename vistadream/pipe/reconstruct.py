@@ -8,10 +8,10 @@ import torch
 import PIL, cv2
 import numpy as np
 from PIL import Image
-from ops.gs.basic import Frame
-from ops.utils import edge_filter
-from ops.depth_pro import Depth_Pro_Tool
-from ops.connect import Smooth_Connect_Tool
+from vistadream.ops.gs.basic import Frame
+from vistadream.ops.utils import edge_filter
+from vistadream.ops.depth_pro import Depth_Pro_Tool
+from vistadream.ops.connect import Smooth_Connect_Tool
 
 
 class Reconstruct_Tool:
@@ -30,7 +30,7 @@ class Reconstruct_Tool:
         print("Pro_dpt[2/3] Pro_dpt Estimation...")
         f_px = intrinsic[0, 0] if intrinsic is not None else None
         metric_dpt, intrinsic = self.pro_dpt(rgb, f_px)
-        print("Pro_dpt[3/3] Move Pro_dpt.model to GPU...")
+        print("Pro_dpt[3/3] Move Pro_dpt.model to CPU...")
         self.pro_dpt.to("cpu")
         torch.cuda.empty_cache()
         edge_mask = edge_filter(metric_dpt, times=0.05)

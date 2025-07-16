@@ -45,11 +45,11 @@ where each element in the list is a tuple, defined as ```(Camera, Target, Up)```
 ### 3. Trajectory check
 
 If you want to verify whether the trajectory construction is correct, you can use the following code for checking, taking 
-class ```Rot``` in ```ops/trajs/rot.py``` as a reference: 
+class ```Rot``` in ```vistadream/ops/trajs/rot.py``` as a reference: 
 ```
-from ops.trajs.check import Base_Check_Traj
+from vistadream.ops.trajs.check import Base_Check_Traj
 # change to yours below
-from ops.trajs.rot import Rot
+from vistadream.ops.trajs.rot import Rot
 
 rgb_fn = 'data/sd_readingroom/color.png'
 checkor = Base_Check_Traj(rgb_fn)

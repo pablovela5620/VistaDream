@@ -1,0 +1,86 @@
+[workspace]
+authors = ["pablo vela <pablovela5620@gmail.com>"]
+channels = ["xformers", "pyg", "pytorch", "nvidia", "conda-forge"]
+name = "vistadream"
+platforms = ["linux-64"]
+version = "0.1.0"
+
+[system-requirements]
+cuda = "12" # Replace "12" with the specific CUDA version you intend to use
+
+[tool.setuptools.packages.find]
+include = ["vistadream*"]
+
+[tasks]
+install-msda = { cmd = "sh make.sh", cwd = "tools/OneFormer/oneformer/modeling/pixel_decoder/ops", description = "Install MSDA operations for OneFormer pixel decoder" }
+
+
+[activation]
+# required to make gsplat work on CUDA 12.8 | 5090
+env = { TORCH_CUDA_ARCH_LIST = "12.0" }
+
+[dependencies]
+python = "3.11.*"
+pip = "24.0.*"
+cmake = ">=4.0.3,<5"
+
+# CUDA Build Tools
+cuda-compiler = "*"
+cuda-version = "12.8.*"
+cuda-cudart-dev = "*"
+cuda-crt = "*"
+libcusparse-dev = "*"
+cuda-driver-dev = "*"
+cuda-nvcc = "*"
+cuda-nvrtc-dev = "*"
+cuda-nvtx = "*"
+cuda-nvtx-dev = "*"
+cuda-nvml-dev = "*"
+cuda-profiler-api = "*"
+
+# CUDA Libraries
+cudnn = "*"
+libcublas-dev = "*"
+libcudss-dev = "*"
+libcufile-dev = "*"
+libcufft-dev = "*"
+libcurand-dev = "*"
+libcusolver-dev = "*"
+cusparselt = "*"
+libnvjitlink = "*"
+tyro = ">=0.9.26,<0.10"
+# cuda126 end
+
+[pypi-options]
+no-build-isolation = ["natten", "detectron2", "gsplat"]
+
+[pypi-dependencies]
+torch = { version = ">=2.7.0", index = "https://download.pytorch.org/whl/cu128" }
+torchvision = { version = ">=0.20.1", index = "https://download.pytorch.org/whl/cu128" }
+accelerate = "*"
+gsplat = { git = "https://github.com/nerfstudio-project/gsplat.git" }
+open3d = "*"
+tqdm = "*"
+omegaconf = "*"
+opencv-python = "*"
+opencv-contrib-python = "*"
+plyfile = "*"
+timm = "*"
+natten = ">=0.21.0, <0.22"
+wandb = "*"
+ftfy = "*"
+diffdist = "*"
+diffusers = "*"
+einops = "*"
+imageio = "*"
+imageio-ffmpeg = "*"
+transformers = "*"
+torchsde = "*"
+huggingface-hub = "*"
+roma = "*"
+peft = "*"
+depth_pro = { path = "tools/DepthPro", editable = false }
+detectron2 = { git = "https://github.com/facebookresearch/detectron2.git" }
+torchmetrics = ">=1.7.4, <2"
+simplecv = { git = "https://github.com/pablovela5620/simplecv.git" }
+vistadream = { path = ".", editable = true }
