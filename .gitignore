@@ -10,3 +10,31 @@ __pycache__
 */*/*/__pycache__
 */*/*/*/__pycache__
 */*/*/*/*/__pycache__
+
+# pixi environments
+.pixi
+
+# Build artifacts
+*.egg-info/
+build/
+*.so
+*.ninja*
+.ninja_deps
+.ninja_log
+
+# Model checkpoints and weights
+checkpoints/
+models/
+lcm_ckpt/
+*.safetensors
+*.bin
+*.pth
+
+# Generated data files
+data/
+*.ply
+
+# Generated videos and images from processing
+*.mp4
+*.original.png
+temp.*.png
