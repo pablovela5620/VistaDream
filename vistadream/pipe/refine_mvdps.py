@@ -10,13 +10,16 @@ Cycling:
 -- Finally the Gaussian
 """
 
-import torch
-import numpy as np
 from copy import deepcopy
-from vistadream.ops.utils import *
-from vistadream.ops.gs.train import *
-from vistadream.ops.trajs import _generate_trajectory
+
+import numpy as np
+import torch
+import tqdm
+
 from vistadream.ops.gs.basic import Frame, Gaussian_Scene
+from vistadream.ops.gs.train import GS_Train_Tool, RGB_Loss
+from vistadream.ops.trajs import _generate_trajectory
+from vistadream.ops.utils import inpaint_tiny_holes, save_pic
 
 
 class Refinement_Tool_MCS:
@@ -69,7 +72,7 @@ class Refinement_Tool_MCS:
         intrinsic[1, -1] = target_H / 2
         # generate a set of cameras
         trajs = _generate_trajectory(None, self.coarse_GS, nframes=self.n_view + 1)[1:]
-        for i, pose in enumerate(trajs):
+        for _, pose in enumerate(trajs):
             fine_frame = Frame()
             fine_frame.H = target_H
             fine_frame.W = target_W
@@ -111,7 +114,7 @@ class Refinement_Tool_MCS:
             gf._require_grad(True)
         self.refine_GS = GS_Train_Tool(CGS)
         # rectification
-        for iter in range(iters):
+        for _ in range(iters):
             loss = 0.0
             # supervise on input view
             nkpt = 0
@@ -148,7 +151,7 @@ class Refinement_Tool_MCS:
         # re-rendering RGB
         with torch.no_grad():
             x0_rect = []
-            for i, frame in enumerate(self.refine_frames):
+            for _, frame in enumerate(self.refine_frames):
                 re_render_rgb, _, re_render_alpha = self.refine_GS._render(frame)
                 # avoid rasterization holes yield more block holes and more
                 x0_rect.append(re_render_rgb.permute(2, 0, 1)[None])

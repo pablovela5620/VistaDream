@@ -34,7 +34,7 @@ class GS_Train_Tool:
     The supervision comes from the Frames of GS_Scene
     """
 
-    def __init__(self, GS: Gaussian_Scene, iters=100) -> None:
+    def __init__(self, GS: Gaussian_Scene, iters: int = 100) -> None:
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         # hyperparameters for prune, densify, and update
         self.lr_factor = 1.00

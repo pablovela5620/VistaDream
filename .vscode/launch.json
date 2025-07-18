@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python Debugger: new_demo.py with --help",
+            "name": "Python Debugger: new_demo.py",
             "type": "debugpy",
             "request": "launch",
             "program": "${workspaceFolder}/new_demo.py",

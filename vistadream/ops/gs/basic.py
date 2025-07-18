@@ -1,17 +1,19 @@
+from copy import deepcopy
+from dataclasses import dataclass
+
+import gsplat as gs
+import numpy as np
 import PIL
 import torch
-import numpy as np
-import gsplat as gs
 import torch.nn as nn
-from copy import deepcopy
 import torch.nn.functional as F
-from dataclasses import dataclass
+
 from vistadream.ops.utils import (
-    dpt2xyz,
     alpha_inpaint_mask,
-    transform_points,
+    dpt2xyz,
     numpy_normalize,
     numpy_quaternion_from_matrix,
+    transform_points,
 )
 
 
@@ -288,7 +290,7 @@ class Gaussian_Scene:
         return render_rgb, render_dpt, render_alpha
 
     @torch.no_grad()
-    def _render_for_inpaint(self, frame):
+    def _render_for_inpaint(self, frame: Frame) -> Frame:
         # first render
         render_rgb, render_dpt, render_alpha = self._render_RGBD(frame)
         render_msk = alpha_inpaint_mask(render_alpha)

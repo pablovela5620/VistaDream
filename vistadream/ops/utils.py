@@ -1,12 +1,13 @@
 import os
+from copy import deepcopy
+
 import cv2
-import torch
 import matplotlib
 import numpy as np
 import open3d as o3d
-from PIL import Image
-from copy import deepcopy
+import torch
 from omegaconf import OmegaConf
+from PIL import Image
 from scipy.spatial import cKDTree
 
 

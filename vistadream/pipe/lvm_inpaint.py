@@ -3,11 +3,12 @@ render using frames in GS
 inpaint with fooocus
 """
 
-import torch
 import numpy as np
-from vistadream.ops.llava import Llava
-from vistadream.ops.gs.basic import Frame
+import torch
+
 from vistadream.ops.fooocus import Fooocus_Tool
+from vistadream.ops.gs.basic import Frame
+from vistadream.ops.llava import Llava
 
 
 class Inpaint_Tool:
@@ -38,7 +39,7 @@ class Inpaint_Tool:
             query = self._llava_prompt(frame)
             prompt = self.llava(frame.rgb, query)
             split = str.rfind(prompt, "ASSISTANT: This image is taken from a scene of ") + len(
-                f"ASSISTANT: This image is taken from a scene of "
+                "ASSISTANT: This image is taken from a scene of "
             )
             prompt = prompt[split:]
             print(prompt)

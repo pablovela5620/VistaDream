@@ -1,8 +1,13 @@
+from copy import deepcopy
+
 import imageio
 import matplotlib
-from vistadream.ops.utils import *
-from vistadream.ops.gs.basic import *
+import numpy as np
+import torch
+
+from vistadream.ops.gs.basic import Frame, Gaussian_Scene  # Import only the required classes
 from vistadream.ops.trajs import _generate_trajectory
+from vistadream.ops.utils import visual_pcd  # Add other required imports explicitly
 
 
 class Check:

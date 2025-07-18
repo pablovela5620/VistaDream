@@ -33,7 +33,8 @@ lcm_ckpt/
 # Generated data files
 data/
 *.ply
-
+tmp/
+ckpt/
 # Generated videos and images from processing
 *.mp4
 *.original.png
